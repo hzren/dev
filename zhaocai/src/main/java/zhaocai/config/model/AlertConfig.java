@@ -1,7 +1,9 @@
-package zhaocai.config;
+package zhaocai.config.model;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AlertConfig {
 	@Value("${alert._0_3}") public float _0_3;	
 	@Value("${alert._3_6}") public float _3_6;	

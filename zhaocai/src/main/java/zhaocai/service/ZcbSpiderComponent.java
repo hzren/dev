@@ -9,6 +9,9 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import zhaocai.config.Configuration;
+import zhaocai.config.model.SpiderConfig;
+
 @Component
 public class ZcbSpiderComponent implements Runnable
 {
@@ -22,8 +25,9 @@ public class ZcbSpiderComponent implements Runnable
 	public void init()
 	{
 		long initialDelay = 10l;
+		int alertInterval = Configuration.getConfiguration(SpiderConfig.class).alertInterval;
 		EXECUTOR.schedule(this, initialDelay, TimeUnit.SECONDS);
-		EXECUTOR.scheduleAtFixedRate(alaertTask, initialDelay, 60, TimeUnit.SECONDS);
+		EXECUTOR.scheduleAtFixedRate(alaertTask, initialDelay, alertInterval, TimeUnit.SECONDS);
 	}
 
 	@Override
@@ -44,7 +48,8 @@ public class ZcbSpiderComponent implements Runnable
 		System.out.println("cost : " + cost);
 		
 		//schedule next
-		long interval = 10 * 60 * 1000;
+		int seconds = Configuration.getConfiguration(SpiderConfig.class).queryInterval;
+		long interval = seconds * 1000;
 		ZcbSpiderComponent.EXECUTOR.schedule(this, interval - cost , TimeUnit.MILLISECONDS);
 	}
 	

@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 
 import zhaocai.base.Utils;
 import zhaocai.base.ZcbPeriod;
-import zhaocai.config.AlertConfig;
 import zhaocai.config.Configuration;
+import zhaocai.config.model.AlertConfig;
 import zhaocai.entity.ZcbSubscribe;
 
 @Service
