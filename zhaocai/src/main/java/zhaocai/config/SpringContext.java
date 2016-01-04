@@ -1,0 +1,22 @@
+package zhaocai.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+
+@Configuration
+@PropertySource("application.properties")
+class SpringContext
+{
+	@Bean
+	public AlertConfig alertConfig(){
+		return new AlertConfig();
+	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer()
+	{
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+}

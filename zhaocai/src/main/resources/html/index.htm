@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>给老婆的</title>
+
+		<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+$(function () {
+    $.getJSON('/dynamic/datas/json?filename=usdeur.json', function (data) {
+		console.log(data);
+		
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+        $('#container').highcharts({
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: '招财宝收益变化图'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                        '点击拖拽可以放大' : '捏图表缩小'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: '收益率'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                type: 'line',
+                name: '0-3个月',
+                data: data['_0_3']
+            },
+            {
+                type: 'line',
+                name: '3-6个月',
+                data: data['_3_6']
+            },
+            {
+                type: 'line',
+                name: '6-12个月',
+                data: data['_6_12']
+            },
+            {
+                type: 'line',
+                name: '12-24个月',
+                data: data['_12_24']
+            },{
+                type: 'line',
+                name: '24-9999个月',
+                data: data['_24_9999']
+            }]
+        });
+    });
+});
+		</script>
+	</head>
+	<body>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>
