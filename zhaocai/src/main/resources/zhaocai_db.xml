@@ -14,7 +14,7 @@
 
 	<description>Spring Configuration </description>
 	
-	<context:property-placeholder ignore-resource-not-found="true" location="classpath:application.properties"/>	
+	<context:property-placeholder ignore-resource-not-found="true" location="classpath:application.properties,file:///C:/application.properties"/>	
 	
 	<!-- scan all need be wired -->
 	<context:component-scan base-package="zhaocai.service"/>
@@ -58,8 +58,8 @@
 	<!-- c3p0 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<!-- Connection Info -->
-		<property name="driverClass" value="${jdbc.driver}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="jdbcUrl" value="jdbc:derby:${db.location};create=true" />
 	
 		<!-- Connection Pooling Info -->
 		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
