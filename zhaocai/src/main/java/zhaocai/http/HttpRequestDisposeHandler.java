@@ -11,7 +11,6 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -21,14 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import zhaocai.base.ZcbProduct;
+import zhaocai.Constants;
+import zhaocai.base.DataUtils;
 import zhaocai.entity.ZcbProduct_0_3;
 import zhaocai.entity.ZcbProduct_12_24;
 import zhaocai.entity.ZcbProduct_24_9999;
@@ -64,25 +59,23 @@ public class HttpRequestDisposeHandler extends SimpleChannelInboundHandler<HttpR
 		if (path.startsWith("/resources")) {
 			
 		}else if (path.startsWith("/dynamic")) {
-			int size = 1008;
-			Sort sort = new Sort(Direction.DESC,"id");
+			long lastWeek = System.currentTimeMillis() - Constants.WEEK_MILS - Constants._10_MIN_MILS;
 			HashMap<String, List<Object[]>> res = new HashMap<>();		
-			Pageable pageable = new PageRequest(0, size, sort);
 			
-			Page<ZcbProduct_0_3> _0_3Page = _0_3_Dao.findByIndex(0, pageable);
-			res.put("_0_3", getList(_0_3Page));
+			List<ZcbProduct_0_3> _0_3Page = _0_3_Dao.findByIndexAndTimeGreaterThan(0, lastWeek);
+			res.put("_0_3", DataUtils.getList(_0_3Page));
 			
-			Page<ZcbProduct_3_6> _3_6Page = _3_6_Dao.findByIndex(0, pageable);
-			res.put("_3_6", getList(_3_6Page));
+			List<ZcbProduct_3_6> _3_6Page = _3_6_Dao.findByIndexAndTimeGreaterThan(0, lastWeek);
+			res.put("_3_6", DataUtils.getList(_3_6Page));
 			
-			Page<ZcbProduct_6_12> _6_12Page = _6_12_Dao.findByIndex(0, pageable);
-			res.put("_6_12", getList(_6_12Page));
+			List<ZcbProduct_6_12> _6_12Page = _6_12_Dao.findByIndexAndTimeGreaterThan(0, lastWeek);
+			res.put("_6_12", DataUtils.getList(_6_12Page));
 			
-			Page<ZcbProduct_12_24> _12_24Page = _12_24_Dao.findByIndex(0, pageable);
-			res.put("_12_24", getList(_12_24Page));
+			List<ZcbProduct_12_24> _12_24Page = _12_24_Dao.findByIndexAndTimeGreaterThan(0, lastWeek);
+			res.put("_12_24", DataUtils.getList(_12_24Page));
 			
-			Page<ZcbProduct_24_9999> _24_9999Page = _24_9999_Dao.findByIndex(0, pageable);
-			res.put("_24_9999", getList(_24_9999Page));
+			List<ZcbProduct_24_9999> _24_9999Page = _24_9999_Dao.findByIndexAndTimeGreaterThan(0, lastWeek);
+			res.put("_24_9999", DataUtils.getList(_24_9999Page));
 			
 			Gson gson = new Gson();
 			byte[] bytes = gson.toJson(res).getBytes();
@@ -108,15 +101,6 @@ public class HttpRequestDisposeHandler extends SimpleChannelInboundHandler<HttpR
 		DefaultFullHttpResponse resp = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, body.writeBytes(bytes));
 		HttpHeaders.setContentLength(resp, bytes.length);
 		ctx.writeAndFlush(resp);
-	}
-	
-	List<Object[]> getList(Page<? extends ZcbProduct> page){
-		List<Object[]> resList = new LinkedList<>();
-		List<? extends ZcbProduct> list = page.getContent();
-		for(ZcbProduct zcb : list){
-			resList.add(new Object[]{zcb.time, zcb.yields});
-		}	
-		return resList;
 	}
 
 }
