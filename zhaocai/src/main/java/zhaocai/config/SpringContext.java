@@ -8,7 +8,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @ComponentScan("zhaocai.config.model")
 @Configuration
-@PropertySource("application.properties")
+@PropertySource(value = {"classpath:/application.properties", "file:C://application.properties"}, ignoreResourceNotFound = true)
 class SpringContext
 {
 	@Bean

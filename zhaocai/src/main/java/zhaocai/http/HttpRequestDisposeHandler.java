@@ -56,7 +56,7 @@ public class HttpRequestDisposeHandler extends SimpleChannelInboundHandler<HttpR
 	protected void channelRead0(ChannelHandlerContext ctx, HttpRequest msg)
 			throws Exception {
 		String path = msg.getUri();
-		if (path.startsWith("/resources")) {
+		if (path.startsWith("/static")) {
 			
 		}else if (path.startsWith("/dynamic")) {
 			long lastWeek = System.currentTimeMillis() - Constants.WEEK_MILS - Constants._10_MIN_MILS;

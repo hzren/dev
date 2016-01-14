@@ -25,6 +25,7 @@ public class HttpServerInitializer extends ChannelInitializer<SocketChannel> {
     public void initChannel(SocketChannel ch) {
         ChannelPipeline p = ch.pipeline();
         p.addLast(new HttpServerCodec());
+        //we only handle get request, so only need handle http request header
         p.addLast(disposeHandler);
     }
 }

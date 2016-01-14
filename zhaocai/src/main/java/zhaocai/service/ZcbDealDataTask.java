@@ -3,6 +3,8 @@ package zhaocai.service;
 import java.net.URI;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,14 +18,17 @@ import com.jayway.jsonpath.JsonPath;
 @Service
 public class ZcbDealDataTask implements Runnable
 {
+	static final Logger LOGGER = LoggerFactory.getLogger(ZcbDealDataTask.class);
+	
+	static final String DEAL_DATA_URL = "https://zcbprod.alipay.com/zcbDealData.json";
+	
 	@Autowired ZcbDealDao	zcbDealDataDao;
-
 	@Autowired RestTemplate	restTemplate;
 
 	@Override
 	public void run()
 	{
-		ResponseEntity<String> resp = restTemplate.getForEntity(URI.create("https://zcbprod.alipay.com/zcbDealData.json"), String.class);
+		ResponseEntity<String> resp = restTemplate.getForEntity(URI.create(DEAL_DATA_URL), String.class);
 		int code = resp.getStatusCode().value();
 		if (code > 199 && code < 300)
 		{
