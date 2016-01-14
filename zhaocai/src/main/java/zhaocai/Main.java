@@ -1,6 +1,5 @@
 package zhaocai;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import zhaocai.repositories.ZcbProduct_0_3_Dao;
@@ -11,13 +10,11 @@ import zhaocai.repositories.ZcbProduct_6_12_Dao;
 
 public class Main
 {
-	private static ApplicationContext	CONTEXT;
 
 	public static void main(String[] args)
 	{
-		@SuppressWarnings("resource")
-		ApplicationContext context = new ClassPathXmlApplicationContext("zhaocai_db.xml");
-		CONTEXT = context;
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("zhaocai_db.xml");
+		context.start();
 		
 		while(true){
 			ZcbProduct_0_3_Dao _0_3_Dao = context.getBean(ZcbProduct_0_3_Dao.class);
@@ -39,6 +36,8 @@ public class Main
 				Thread.sleep(10l * 60 * 1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+				context.close();
+				return;
 			}
 		}
 		// TODO
