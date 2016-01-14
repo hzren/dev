@@ -25,4 +25,5 @@ public class Utils {
 		}
 		return Float.parseFloat(number.substring(start, end));
 	}
+	
 }
