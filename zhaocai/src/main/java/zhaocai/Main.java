@@ -18,19 +18,13 @@ public class Main
 		
 		while(true){
 			ZcbProduct_0_3_Dao _0_3_Dao = context.getBean(ZcbProduct_0_3_Dao.class);
-			System.out.println("0-3 yue : " + _0_3_Dao.count());
-			
 			ZcbProduct_3_6_Dao _3_6_Dao = context.getBean(ZcbProduct_3_6_Dao.class);
-			System.out.println("3-6 yue : " + _3_6_Dao.count());
-			
 			ZcbProduct_6_12_Dao _6_12_Dao = context.getBean(ZcbProduct_6_12_Dao.class);
-			System.out.println("6-12 yue : " + _6_12_Dao.count());
-			
 			ZcbProduct_12_24_Dao _12_24_Dao = context.getBean(ZcbProduct_12_24_Dao.class);
-			System.out.println("12_24 yue : " + _12_24_Dao.count());
-			
 			ZcbProduct_24_9999_Dao _24_9999_Dao = context.getBean(ZcbProduct_24_9999_Dao.class);
-			System.out.println("0-3 yue : " + _24_9999_Dao.count());
+			String msg = "COUNT, 0-3:" + _0_3_Dao.count() + ",3-6:" + _3_6_Dao.count() + ",6-12:" + _6_12_Dao.count();
+			msg += ",12-24:" + _12_24_Dao.count() + ",24-9999:" +_24_9999_Dao.count();
+			System.out.println(msg);
 			
 			try {
 				Thread.sleep(10l * 60 * 1000);
