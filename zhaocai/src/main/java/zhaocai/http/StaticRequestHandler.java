@@ -3,10 +3,12 @@ package zhaocai.http;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpRequest;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Service
 @RequestMapping(value = StaticRequestHandler.BASE)
-public class StaticRequestHandler implements RequestHandler {
+public class StaticRequestHandler extends RequestHandler {
 	
 	public static final String BASE = "/static";
 	

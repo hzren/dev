@@ -1,7 +1,5 @@
 package zhaocai.http;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpRequest;
@@ -24,7 +22,7 @@ import com.google.gson.Gson;
 
 @Service
 @RequestMapping(value = DynamicRequestHandler.BASE)
-public class DynamicRequestHandler implements RequestHandler {
+public class DynamicRequestHandler extends RequestHandler {
 	
 	public static final String BASE = "/dynamic";
 
@@ -52,15 +50,14 @@ public class DynamicRequestHandler implements RequestHandler {
 		if (!uri.startsWith(BASE)) {
 			throw new IllegalArgumentException("Only accept request start with :" + BASE);
 		}
-		String sub = uri.substring(BASE.length());
+		String sub = new QueryStringDecoder(uri).path();
 		Method m = mapping.get(sub);
 		if (m == null) {
 			return new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND);
 		}
 		try {
 			byte[] data = (byte[]) m.invoke(this, request);
-			ByteBuf body = Unpooled.buffer(data.length).writeBytes(data);
-			return new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, body);
+			return pack(data, "application/json");
 		} catch (Exception e) {
 			return new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR);
 		}
