@@ -10,7 +10,7 @@ ${demo.css}
 		</style>
 		<script type="text/javascript">
 $(function () {
-    $.getJSON('/dynamic/datas/json?filename=usdeur.json', function (data) {
+    $.getJSON('/dynamic/yields/last?days=8', function (data) {
 		console.log(data);
 		
         Highcharts.setOptions({
