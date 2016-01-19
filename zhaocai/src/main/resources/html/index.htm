@@ -9,10 +9,13 @@
 ${demo.css}
 		</style>
 		<script type="text/javascript">
-$(function () {
-    $.getJSON('/dynamic/yields/last?days=8', function (data) {
-		console.log(data);
-		
+function load(){
+	var days = $('#days').val();
+	var wrapper = $('#wrapper')
+	wrapper.empty()
+	wrapper.html('<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>')
+    $.getJSON('/dynamic/yields/last?days=' + days, function (data) {
+
         Highcharts.setOptions({
             global: {
                 useUTC: false
@@ -93,14 +96,16 @@ $(function () {
             }]
         });
     });
-});
+}
+		
+$(load);
 		</script>
 	</head>
 	<body>
 <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
 <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
-
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div><input name="days" value='8' type="text" id="days"/><input type="submit" value="Submit" onclick="load()" /></div>
+<div id="wrapper"><div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div></div>
 
 	</body>
 </html>
