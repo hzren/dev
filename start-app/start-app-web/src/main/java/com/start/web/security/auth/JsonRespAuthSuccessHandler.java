@@ -29,7 +29,7 @@ public class JsonRespAuthSuccessHandler implements AuthenticationSuccessHandler 
             throws IOException, ServletException {
 		response.setStatus(HttpStatus.OK.value());
 	    response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-	    response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+	    response.setCharacterEnng(StandardCharsets.UTF_8.name());
 	    BaseResult result = new SingleDataResult<>(userDao.findOne(UserUtil.getUserId()));
 	    JSON.writeJSONString(response.getWriter(), result, SerializerFeature.QuoteFieldNames, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat);
 	    response.flushBuffer();

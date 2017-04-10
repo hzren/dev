@@ -19,7 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import combase.dataSource.CodiDataSource;
+import combase.dataSource.DataSource;
 import comstart-app.common.util.DebugableHashMap;
 import comstart-app.common.validation.ValidatorFactory;
 
@@ -32,7 +32,7 @@ public class BizSpringConfiguration {
 	@Bean
 	public DataSource dataSource() {
 		try {
-			return new CodiDataSource("start-app");
+			return new DataSource("start-app");
 		} catch (SQLException e) {
 			throw new Error("Init datasource fail !!!", e);
 		}

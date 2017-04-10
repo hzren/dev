@@ -21,7 +21,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  */
 @Slf4j
 public class SensitiveWordInit {
-	private static final String ENCODING = "UTF-8";    //字符编码
+	private static final String ENNG = "UTF-8";    //字符编码
 	public HashMap<?, ?> sensitiveWordMap;
 	
 	SensitiveWordInit(){
@@ -135,7 +135,7 @@ public class SensitiveWordInit {
 	        Resource resource = resources[i];
 	        log.debug("Load word from: " + resource.getDescription());
 			if(resource.isReadable()){
-				try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(resource.getInputStream(), ENCODING))) {
+				try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(resource.getInputStream(), ENNG))) {
 					String txt = null;
 					while((txt = bufferedReader.readLine()) != null){    //读取文件，将文件内容放入到set中
 						set.add(txt);

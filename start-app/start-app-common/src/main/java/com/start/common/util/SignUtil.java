@@ -37,7 +37,7 @@ public class SignUtil {
 		return MD5.MD5Encode(sign);
 	}
 
-	public static boolean verifyCodiSignV2(String requestStr, String token, String sign){
+	public static boolean verifySignV2(String requestStr, String token, String sign){
 		return getSign(requestStr, getSalt(token)).equals(sign);
 	}
 

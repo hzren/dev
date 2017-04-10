@@ -38,13 +38,13 @@
 
 	<profiles>
 		<profile>
-			<id>codi</id>
+			<id>start</id>
 			<activation>
 			 <activeByDefault>true</activeByDefault>
 			</activation>
 			<repositories>
 				<repository>
-					<id>codi-nexus</id>
+					<id>start-nexus</id>
 					<url>http://120.55.85.150:8081/nexus/content/groups/public/</url>
 					<releases>
 						<enabled>true</enabled>
@@ -57,7 +57,7 @@
 			</repositories>
 			<pluginRepositories>
 				<pluginRepository>
-					<id>codi-nexus</id>
+					<id>start-nexus</id>
 					<url>http://120.55.85.150:8081/nexus/content/groups/public/</url>
 					<releases>
 						<enabled>true</enabled>
@@ -83,25 +83,13 @@
 	</profiles>
 
     <dependencies>
-        <!-- 所有模块都依赖 -->
-        <dependency>
-            <groupId>com.codi</groupId>
-            <artifactId>codi-base</artifactId>
-            <version>${codi.base.version}</version>
-            <exclusions>
-            	<exclusion>
-            		<groupId>*</groupId>
-            		<artifactId>*</artifactId>
-            	</exclusion>
-            </exclusions>
-        </dependency>
 
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
 		    <dependency>
-		      <groupId>com.codi</groupId>
+		      <groupId>com.start</groupId>
 		      <artifactId>superman-base</artifactId>
 		      <version>${superman-base.version}</version>
 		      <exclusions>
@@ -111,16 +99,6 @@
 		          </exclusion>
 		      </exclusions>
 		    </dependency>
-			<dependency>
-			    <groupId>com.codi</groupId>
-			    <artifactId>mc-receiver-api</artifactId>
-			    <version>1.0.0</version>
-			</dependency>
-			<dependency>
-			    <groupId>com.codi</groupId>
-			    <artifactId>mc-receiver-biz</artifactId>
-			    <version>1.0.0</version>
-			</dependency>
 			<dependency>
 			    <groupId>com.alibaba</groupId>
 			    <artifactId>dubbo</artifactId>

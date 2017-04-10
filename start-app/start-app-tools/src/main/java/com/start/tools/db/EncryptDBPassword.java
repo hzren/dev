@@ -45,7 +45,7 @@ public class EncryptDBPassword {
 	public static void main(String[] args) throws Exception {
 		//TODO Input password here
         //String password = "YOUR_DB_PASSWORD";
-		String password = "Codi1234";
+		String password = "1234";
         String[] arr = genKeyPair(512);
         System.out.println("privateKey:" + arr[0]);
         System.out.println("publicKey:" + arr[1]);
